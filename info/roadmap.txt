@@ -1,0 +1,129 @@
+
+Phase 1 – Project Setup and Data Collection (Days 1–7)
+
+Tasks
+    •	Set up project structure (folders, virtual environment, requirements.txt)
+    •	Collect and clean datasets:
+    •	Prescription images and text samples
+    •	Medicine–disease mapping dataset
+    •	Drug side effects dataset (DrugBank, SIDER)
+    •	Health tips dataset (disease → prevention tips)
+    •	Annotate a small sample for NER training (medicine, disease, symptoms, dosage labels)
+    •	Prepare CSV/JSON files for database building
+
+Deliverables
+    •	Organized project folder
+    •	All required datasets collected and preprocessed
+    •	Initial annotated data ready for NER
+
+________________________________________
+
+Phase 2 – OCR Module Development (Days 8–12)
+
+Tasks
+    •	Implement OCR text extraction pipeline using Tesseract or PaddleOCR
+    •	Preprocess extracted text (remove noise, format text for NER input)
+    •	Test OCR accuracy on different prescription images
+
+Deliverables
+    •	Working OCR script (ocr_extraction.py)
+    •	Cleaned text output from sample images
+
+________________________________________
+
+Phase 3 – Named Entity Recognition (NER) Model (Days 13–20)
+
+Tasks
+    •	Fine-tune BioBERT for medical NER
+    •	Use annotated data for entities: MEDICINE, DISEASE, SYMPTOM, DOSAGE
+    •	Implement token classification head and train
+    •	Evaluate with F1 score and save the model
+
+Deliverables
+    •	Fine-tuned ner_model/
+    •	Evaluation report (precision, recall, F1)
+
+________________________________________
+
+Phase 4 – Disease Classification Model (Days 21–30)
+
+Tasks
+    •	Train BioBERT/ClinicalBERT on medicine-to-disease mapping dataset
+    •	Multi-label classification with sigmoid activation
+    •	Hyperparameter tuning (learning rate, batch size)
+    •	Evaluate on test data and save model
+
+Deliverables
+    •	Fine-tuned disease_classifier_model/
+    •	Model performance metrics (accuracy, F1, ROC-AUC)
+
+________________________________________
+
+Phase 5 – Knowledge Base and Side Effects Module (Days 31–35)
+
+Tasks
+    •	Parse DrugBank/SIDER CSV to create side effects database
+    •	Build health tips database mapping diseases to prevention tips
+    •	Implement retrieval function for side effects and tips
+
+Deliverables
+    •	drug_side_effects.csv and health_tips.csv
+    •	Retrieval functions integrated in build_knowledge_db.py
+
+________________________________________
+
+Phase 6 – Inference Pipeline Integration (Days 36–42)
+
+Tasks
+    •	Combine OCR, NER, disease classifier, and knowledge base modules
+    •	Build inference_pipeline.py to handle full flow:
+    •	Image → Text → Medicines → Disease → Side Effects → Health Tips
+    •	Ensure modular design for easy updates
+
+Deliverables
+    •	End-to-end working pipeline script
+    •	Tested on multiple prescription samples
+
+________________________________________
+
+Phase 7 – API and User Interface (Days 43–47)
+
+Tasks
+    •	Develop FastAPI or Flask backend (app/main.py)
+    •	Implement endpoints for:
+    •	Image upload and analysis
+    •	Text input analysis
+    •	Build a simple Streamlit or React UI for uploading and displaying results
+
+Deliverables
+    •	Running API server
+    •	Basic web interface with upload functionality
+
+________________________________________
+
+Phase 8 – Testing, Optimization, and Documentation (Days 48–50)
+
+Tasks
+    •	Perform end-to-end testing with different prescriptions
+    •	Optimize inference speed (batch processing, model quantization)
+    •	Write project documentation (README.md, usage guide)
+    •	Prepare final demo or deployment setup
+
+Deliverables
+    •	Tested, optimized solution
+    •	Documentation and deployment-ready project
+
+________________________________________
+
+Summary Timeline
+    •	Phase 1: Days 1–7
+    •	Phase 2: Days 8–12
+    •	Phase 3: Days 13–20
+    •	Phase 4: Days 21–30
+    •	Phase 5: Days 31–35
+    •	Phase 6: Days 36–42
+    •	Phase 7: Days 43–47
+    •	Phase 8: Days 48–50
+
+________________________________________
+
