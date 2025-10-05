@@ -5,9 +5,9 @@
 MediScan is an AI-powered system designed to automatically analyze medical prescriptions (images or text), extract medicine information, and provide insights including:
 
 - Predicted diseases related to prescribed medicines  
-- Associated symptoms  
-- Possible side effects  
-- Preventive health tips  
+- Associated symptoms and side effects  
+- Preventive health tips
+- Doctor suggestions 
 
 The project uses a **Hybrid RAG (Retrieval-Augmented Generation)** approach, combining a fine-tuned **Named Entity Recognition (NER)** model with a **retrieval-based medical knowledge base** for accurate and updatable predictions.
 
