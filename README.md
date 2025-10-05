@@ -23,38 +23,53 @@ The project uses a **Hybrid RAG (Retrieval-Augmented Generation)** approach, com
 
 ---
 
+---
+
+## High-Level- system architecture
+
+[User] -> Web/Mobile App (chat + upload image) 
+   -> Backend API
+       -> Image preprocessing (denoise, binarize)
+       -> OCR / Handwriting Recognition -> raw text
+       -> Prescription Parsing (NER + relation extraction)
+       -> Structured Record (patient info, meds[], diagnoses[])
+       -> RAG Retrieval:
+            - Vector DB (embeddings of medical docs, drug monographs)
+            - Retriever (FAISS/Milvus/Weaviate)
+            - LLM (local quantized/inference API or OpenAI)
+            - RAG response generator (answer + citations)
+       -> Nearby Doctors Service (Places API / OSM + filter by specialty)
+       -> Post-processing / Safety checks / Logging
+   -> UI: chat, annotated prescription, medication summary, map + contact
+
+---
+
 ## Project Structure
 
 ```
 MediScan/
-│
-│── data/
-│    ├── prescriptions/               # Prescription images or text
-│    ├── annotated_ner_data.json      # NER training annotations
-│    ├── drug_disease_mapping.csv     # Medicine → Disease
-│    ├── drug_side_effects.csv        # Medicine → Side effects
-│    ├── health_tips.csv              # Disease → Preventive tips
-│    └── vector_store/                # FAISS or ElasticSearch index
-│
-│── models/
-│    ├── ocr_model/                   # OCR engine (Tesseract/PaddleOCR)
-│    └── ner_model/                   # Fine-tuned BioBERT for medicine extraction
-│
-│── src/
-│    ├── ocr_extraction.py            # OCR text extraction module
-│    ├── preprocess.py                # Text cleaning and formatting
-│    ├── train_ner.py                 # Script to fine-tune NER model
-│    ├── build_knowledge_db.py        # Builds CSV-based knowledge base
-│    ├── retriever.py                 # Retrieval using FAISS/ElasticSearch
-│    ├── rag_pipeline.py              # End-to-end inference pipeline
-│    └── utils.py                     # Shared helper functions
-│
-│── app/
-│    ├── main.py                      # FastAPI or Flask backend
-│    └── ui/                          # Streamlit/React UI for uploads
-│
-│── requirements.txt
-└── README.md
+  │── data/                         # Folder to store dataset, images ans sample prescriptions
+  │                           
+  │── models/                       # Trained models (OCR, Disease, Advice, DoctorFinder)
+  │   │── ocr_model.py
+  │   │── disease_advice_model.py
+  │   │── near_doctors_model.py
+  │
+  │── knowledge_base/               # Medical KB + embeddings
+  │
+  │── src/
+  │   │── preprocessing/            # OCR + cleaning scripts
+  │   │── rag_pipeline/             # Vector DB, retrieval, response generation
+  │   │── chat_interface/           # Streamlit/Flask chat system
+  │   │── utils/                    # Helpers (API calls, logging, config)
+  │
+  │── tests/                        # Unit tests
+  │── app/
+  │    ├── main.py                  # FastAPI or Flask backend
+  │    └── ui/                      # Streamlit/React UI for uploads
+  │
+  │── requirements.txt
+  └── README.md
 ```
 
 ---
@@ -75,7 +90,7 @@ MediScan/
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/your-username/MediScan.git
+git clone https://github.com/sanjaykumar3115/MediScan.git
 cd MediScan
 ```
 
@@ -140,16 +155,17 @@ Metformin 500mg, twice daily
 **Output:**
 ```json
 {
-  "Medicines": ["Metformin"],
-  "Predicted Disease": ["Type 2 Diabetes Mellitus"],
-  "Symptoms": ["High blood sugar", "Frequent urination"],
-  "Side Effects": ["Nausea", "Diarrhea", "Abdominal discomfort"],
-  "Health Tips": [
-    "Maintain a low-sugar diet",
-    "Exercise regularly",
-    "Monitor blood sugar levels"
-  ]
+  "patient": {"age":"45","gender":"M","date":"2025-09-20"},
+  "meds":[
+    {"drug_name":"Amoxicillin","purpose":"Antibiotic","dose":"500 mg","frequency":"TDS","duration":"5 days","notes":"Take after food","confidence":0.92}
+  ],
+  "likely_conditions":["Tonsillitis"],
+  "advice":"This looks like a short antibiotic course for suspected bacterial tonsillitis. If fever or breathing difficulty occurs, see a doctor immediately. I am not a doctor; consult a licensed healthcare provider.",
+  "sources":[{"id":"doc_01","title":"Amoxicillin monograph","url":"..."}],
+  "nearby_doctors":[{"name":"Dr. X","specialty":"ENT","distance_km":1.2,"phone":"+91..."}]
 }
+
+
 ```
 
 ---
