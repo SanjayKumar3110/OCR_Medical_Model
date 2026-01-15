@@ -64,7 +64,10 @@ OCR_Medical_Model/
 
 ## Installation
 
-1.  **Clone the repository** (if applicable) or navigate to the project directory.
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/SanjayKumar3110/OCR_Medical_Model.git
+    ```
 
 2.  **Install dependencies**:
 
@@ -97,8 +100,9 @@ OCR_Medical_Model/
 ---
 
 ## Dataset
-
-The project uses the **Doctors Handwritten Prescription BD Dataset** from Kaggle, which contains:
+The dataset used for training is publicly available on **Kaggle**:
+> 
+The project uses the **[Doctors Handwritten Prescription BD Dataset](https://www.kaggle.com/datasets/mamun1113/doctors-handwritten-prescription-bd-dataset)** from Kaggle, which contains:
 *   **Training Data**: Images of handwritten medical words.
 *   **Labels**: CSV files mapping images to medicine names.
 
