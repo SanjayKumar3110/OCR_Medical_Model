@@ -1,10 +1,8 @@
-# OCR Medical Model – MediScan
+# OCR Medical Model
 
 ## Overview
 
 This module implements a **Custom Convolutional Neural Network (CNN)** for recognizing handwritten medicine names from doctor prescriptions. Unlike generic OCR tools, this model is specifically trained on the **Doctors Handwritten Prescription BD Dataset** to classify prescription text into 78 distinct medicine classes.
-
-It is a core component of the **MediScan – AI Prescription Analyzer** project, designed to automate the digitization of medical records.
 
 ---
 
