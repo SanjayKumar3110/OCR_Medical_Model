@@ -6,8 +6,6 @@
 This module handles **Optical Character Recognition (OCR)** for the **MediScan – AI Prescription Analyzer** project.
 It extracts textual information (medicine names, dosage, patient info, etc.) from handwritten or printed medical prescriptions.
 
-The OCR module forms the **first phase** of the MediScan pipeline and provides structured text output for downstream components like **NER (Entity Recognition)** and **Disease Prediction**.
-
 ---
 
 ## Features
@@ -97,18 +95,6 @@ Paracetamol 500mg  |  Confidence: 0.92
 Take 1 tablet twice daily
 Dr. Kumar Clinic
 ```
-
----
-
-## Integration with MediScan
-
-The OCR output feeds into:
-
-```
-OCR → NER (BioBERT) → RAG Knowledge Retrieval → Doctor Finder → Final Report
-```
-
-This ensures all downstream components work with clean, structured text extracted from raw images.
 
 ---
 
